@@ -13,6 +13,7 @@ interface ConversationState {
   setConversationItems: (messages: any[]) => void;
   addChatMessage: (item: Item) => void;
   addConversationItem: (message: ChatCompletionMessageParam) => void;
+  clearConversation: () => void;
   rawSet: (state: any) => void;
 }
 
@@ -33,6 +34,17 @@ const useConversationStore = create<ConversationState>((set) => ({
     set((state) => ({
       conversationItems: [...state.conversationItems, message],
     })),
+  clearConversation: () =>
+    set({
+      chatMessages: [
+        {
+          type: "message",
+          role: "assistant",
+          content: [{ type: "output_text", text: INITIAL_MESSAGE }],
+        },
+      ],
+      conversationItems: [],
+    }),
   rawSet: set,
 }));
 
