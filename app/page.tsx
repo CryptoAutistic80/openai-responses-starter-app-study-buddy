@@ -1,37 +1,33 @@
 "use client";
-import Assistant from "@/components/assistant";
-import ToolsPanel from "@/components/tools-panel";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import Link from "next/link";
+import { GraduationCap, Users } from "lucide-react";
 
 export default function Main() {
-  const [isToolsPanelOpen, setIsToolsPanelOpen] = useState(false);
-
   return (
-    <div className="flex justify-center h-screen">
-      <div className="w-full md:w-[70%]">
-        <Assistant />
-      </div>
-      <div className=" hidden md:block w-[30%]">
-        <ToolsPanel />
-      </div>
-      {/* Hamburger menu for small screens */}
-      <div className="absolute top-4 right-4 md:hidden">
-        <button onClick={() => setIsToolsPanelOpen(true)}>
-          <Menu size={24} />
-        </button>
-      </div>
-      {/* Overlay panel for ToolsPanel on small screens */}
-      {isToolsPanelOpen && (
-        <div className="fixed inset-0 z-50 flex justify-end bg-black bg-opacity-30">
-          <div className="w-full bg-white h-full p-4">
-            <button className="mb-4" onClick={() => setIsToolsPanelOpen(false)}>
-              <X size={24} />
-            </button>
-            <ToolsPanel />
+    <div className="h-screen flex items-center justify-center bg-gray-50">
+      <div className="grid grid-cols-2 gap-8 max-w-4xl mx-auto p-8">
+        <Link 
+          href="/student"
+          className="flex flex-col items-center gap-4 p-8 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow border border-stone-200"
+        >
+          <GraduationCap className="w-12 h-12 text-blue-500" />
+          <div className="text-center">
+            <h2 className="text-xl font-semibold mb-2">Student View</h2>
+            <p className="text-gray-600">Access your classes and study materials</p>
           </div>
-        </div>
-      )}
+        </Link>
+
+        <Link 
+          href="/teacher"
+          className="flex flex-col items-center gap-4 p-8 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow border border-stone-200"
+        >
+          <Users className="w-12 h-12 text-green-500" />
+          <div className="text-center">
+            <h2 className="text-xl font-semibold mb-2">Teacher View</h2>
+            <p className="text-gray-600">Manage classes and study materials</p>
+          </div>
+        </Link>
+      </div>
     </div>
   );
 }
